@@ -5,8 +5,10 @@ Useful templates for Home Assistant
 
 ## Is price now among the cheapest n hours?
 
+Used for controlling water heater etc.
+
 ````
-{{ state_attr("sensor.nordpool", "current_price") < ((state_attr("sensor.nordpool", "today")) | sort)[n] }}
+{{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")) | sort)[n-1] }}
 ````
 
 ## Estimate end of hour power consumption
@@ -35,20 +37,20 @@ Nettleie is 0.35 from 22-06, else 0.47.
 ### Nettleie med strømstøtte
 
 Strømstøtte 90% over 0.875 ink mva.
-s = p - (p-0.875)*0.9 = 0.1*p + 0.7875
+s = -(p-0.875)*0.9
 
 ````
 {% if state_attr("sensor.nordpool", "current_price") > 0.875 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ state_attr("sensor.nordpool", "current_price")*0.1 + 0.7875 + 0.35 | float }}
+        {{ -(state_attr("sensor.nordpool", "current_price") - 0.875)*0.9 + 0.35 | float }}
     {% else %}
-        {{ state_attr("sensor.nordpool", "current_price")*0.1 + 0.7875 + 0.47|float }}
+        {{ -(state_attr("sensor.nordpool", "current_price") - 0.875)*0.9 + 0.47 | float }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
         {{ 0.35 | float }}
     {% else %}
-        {{ 0.47|float }}
+        {{ 0.47 | float }}
     {% endif %}
 {% endif %}
 ````
