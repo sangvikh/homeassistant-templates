@@ -16,8 +16,11 @@ Used for controlling water heater etc.
 energy_consumed_current_hour is a utility meter of a riemann sum of the power used.
 
 ````
-{{ states("sensor.energy_consumed_current_hour") | float * 60 / now().minute }}
+{{ states("sensor.energy_consumed_current_hour") | float * 61 / (now().minute + 1) }}
 ````
+
+Breaks at minute 0.
+
 
 ## Additional costs
 
