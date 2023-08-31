@@ -18,8 +18,7 @@ energy_consumed_current_hour is a utility meter of a riemann sum of the power us
 ````
 {{ states("sensor.energy_consumed_current_hour") | float * 61 / (now().minute + 1) }}
 ````
-
-Breaks at minute 0.
+Added 1 to prevent div/0 and to fade estimate in slowly
 
 
 ## Additional costs
