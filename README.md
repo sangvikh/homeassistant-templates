@@ -31,9 +31,9 @@ Additional costs for calculating power tariff including fixed and variable cost
 Nettleie is 0.35 from 22-06, else 0.47.
 ````
 {% if now().hour >= 22 or now().hour < 6 %}
-    {{ 0.35 | float }}
+    {{ 0.35 }}
 {% else %}
-    {{ 0.47|float }}
+    {{ 0.47 }}
 {% endif %}
 ````
 
@@ -45,15 +45,15 @@ s = -(p-0.875)*0.9
 ````
 {% if current_price > 0.875 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.875)*0.9 + 0.35 | float }}
+        {{ -(current_price - 0.875)*0.9 + 0.35 }}
     {% else %}
-        {{ -(current_price - 0.875)*0.9 + 0.47 | float }}
+        {{ -(current_price - 0.875)*0.9 + 0.47 }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ 0.35 | float }}
+        {{ 0.35 }}
     {% else %}
-        {{ 0.47 | float }}
+        {{ 0.47 }}
     {% endif %}
 {% endif %}
 ````
