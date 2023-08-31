@@ -40,11 +40,11 @@ Strømstøtte 90% over 0.875 ink mva.
 s = -(p-0.875)*0.9
 
 ````
-{% if state_attr("sensor.nordpool", "current_price") > 0.875 %}
+{% if current_price > 0.875 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(state_attr("sensor.nordpool", "current_price") - 0.875)*0.9 + 0.35 | float }}
+        {{ -(current_price - 0.875)*0.9 + 0.35 | float }}
     {% else %}
-        {{ -(state_attr("sensor.nordpool", "current_price") - 0.875)*0.9 + 0.47 | float }}
+        {{ -(current_price - 0.875)*0.9 + 0.47 | float }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
