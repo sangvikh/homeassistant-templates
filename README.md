@@ -11,7 +11,7 @@ Used for controlling water heater etc.
 {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")) | sort)[n-1] }}
 ````
 
-## Estimated Hourly Energy consumption
+## Estimated Hourly Energy Consumption
 
 ````
 {{ states("sensor.energy_consumed_current_hour") | float * 3601 / (now().minute*60 + now().second + 1) }}
