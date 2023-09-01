@@ -14,9 +14,9 @@ Used for controlling water heater etc.
 ## Estimated Hourly Energy Consumption
 
 ````
-{{ states("sensor.energy_consumed_current_hour") | float * 3615 / (now().minute*60 + now().second + 15) }}
+{{ states("sensor.energy_consumed_current_hour") | float * 3660 / (now().minute*60 + now().second + 60) }}
 ````
-Added 15 to prevent div/0 and to fade estimate in slowly. Sensor update rate is about 15s.
+Added 60s to prevent div/0 and to fade estimate in slowly. Sensor update rate is about 15s.
 
 
 ## Additional costs
