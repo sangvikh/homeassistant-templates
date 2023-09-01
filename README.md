@@ -11,12 +11,10 @@ Used for controlling water heater etc.
 {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")) | sort)[n-1] }}
 ````
 
-## Estimate end of hour power consumption
-
-energy_consumed_current_hour is a utility meter of a riemann sum of the power used.
+## Estimated Hourly Energy consumption
 
 ````
-{{ states("sensor.energy_consumed_current_hour") | float * 61 / (now().minute + 1) }}
+{{ states("sensor.energy_consumed_current_hour") | float * 3601 / (now().minute*60 + now().second + 1) }}
 ````
 Added 1 to prevent div/0 and to fade estimate in slowly
 
