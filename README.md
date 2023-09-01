@@ -54,3 +54,13 @@ s = -(p-0.875)*0.9
     {% endif %}
 {% endif %}
 ````
+
+## Events
+
+### Use event data in template
+
+Use event for trigger, then data can be accessed in a template.
+
+````
+{{ trigger.event.data.command == "off"}}
+````
