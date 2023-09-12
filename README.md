@@ -3,7 +3,7 @@ Useful templates for Home Assistant
 
 # Energy price (nordpool integration)
 
-## Is price now among the cheapest n hours?
+## Is price now among the cheapest n hours today?
 
 Used for controlling water heater etc.
 
