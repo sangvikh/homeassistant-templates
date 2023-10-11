@@ -92,9 +92,9 @@ action:
   - service: easee.set_charger_dynamic_limit
     data:
       current: >-
-        {{ ((states('input_number.power_limit') | float * 0.9 -
+        {{max(min(((states('input_number.power_limit') | float * 0.9 -
         states('sensor.energy_consumed_current_hour') | float) * 1000 / 230) |
-        round }}
+        round, 16),0) }}
       device_id: d0845e85e758774181b76398a3063cab
   - if:
       - condition: template
