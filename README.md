@@ -14,9 +14,9 @@ Used for controlling water heater etc.
 ## Estimated Hourly Energy Consumption
 
 ````
-{{ states("sensor.energy_consumed_current_hour") | float * 3660 / (now().minute*60 + now().second + 60) }}
+{{ states("sensor.energy_consumed_current_hour") | float * 3700 / (now().minute*60 + now().second + 100) }}
 ````
-Added 60s to prevent div/0 and to decrease sensitivity the first minutes of the hour. Sensor update rate is about 15s.
+Added 100s to prevent div/0 and to decrease sensitivity the first minutes of the hour.
 
 
 ## Additional costs
@@ -64,3 +64,37 @@ Use event for trigger, then data can be accessed in a template.
 ````
 {{ trigger.event.data.command == "off"}}
 ````
+
+## Dynamic power limit
+Adjust EV charger current to stay within specified power limit. Disable water heater as last resort
+
+````
+alias: Power Limiter
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - sensor.estimated_hourly_energy_consumption
+condition: []
+action:
+  - service: easee.set_charger_dynamic_limit
+    data:
+      current: >-
+        {{ ((states('input_number.power_limit') | float * 0.9 -
+        states('sensor.energy_consumed_current_hour') | float) * 1000 / 230) |
+        round }}
+      device_id: d0845e85e758774181b76398a3063cab
+  - if:
+      - condition: template
+        value_template: >-
+          {{states('sensor.estimated_hourly_energy_consumption') | float >
+          states('input_number.power_limit') | float * 0.98}}
+    then:
+      - type: turn_on
+        device_id: 3f0567e5411787bd406f6e045bfe6968
+        entity_id: light.vvb_disable
+        domain: light
+    else: []
+mode: single
+````
+
