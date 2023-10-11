@@ -19,7 +19,7 @@ Used for controlling water heater etc.
 Added 100s to prevent div/0 and to decrease sensitivity the first minutes of the hour.
 
 ### As a sensor
-
+Add this to configuration.yaml:
 ````
 # Power estimate sensor
 template:
