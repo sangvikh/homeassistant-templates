@@ -18,6 +18,18 @@ Used for controlling water heater etc.
 ````
 Added 100s to prevent div/0 and to decrease sensitivity the first minutes of the hour.
 
+### As a sensor
+
+````
+# Power estimate sensor
+template:
+  - sensor:
+    - name: "Estimated Hourly Energy Consumption"
+      unit_of_measurement: "kWh"
+      unique_id: "energyestimate"
+      device_class: "energy"
+      state: '{{ states("sensor.energy_consumed_current_hour") | float * 3700 / (now().minute*60 + now().second + 100) }}'
+````
 
 ## Additional costs
 
