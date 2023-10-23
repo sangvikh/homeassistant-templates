@@ -54,15 +54,15 @@ s = -(p-0.875)*0.9
 ````
 {% if current_price > 0.875 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.875)*0.9 + 0.35 }}
+        {{ -(current_price - 0.875)*0.9 + 0.38 }}
     {% else %}
-        {{ -(current_price - 0.875)*0.9 + 0.47 }}
+        {{ -(current_price - 0.875)*0.9 + 0.5 }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ 0.35 }}
+        {{ 0.38 }}
     {% else %}
-        {{ 0.47 }}
+        {{ 0.5 }}
     {% endif %}
 {% endif %}
 ````
