@@ -11,6 +11,28 @@ Used for controlling water heater etc.
 {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")) | sort)[n-1] }}
 ````
 
+### Old VVB control
+On the lowest 8 hours of the day.
+
+````
+{{state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")) | sort)[states("input_number.vvb_hours_active") | int - 1]}}
+````
+
+### New VVB control
+On the lowest 4 hours the next 12 hours.
+
+````
+{% if is_state_attr("sensor.nordpool", "tomorrow_valid", True) %}
+    {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")  + state_attr("sensor.nordpool", "tomorrow"))[now().hour : now().hour + 12] | sort)[4 - 1] }}
+{% else %}
+    {% if now().hour <= 12 %}
+        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[now().hour : now().hour + 12] | sort)[4 - 1] }}
+    {% else %}
+        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[12:24] | sort)[4 - 1] }}
+    {% endif %}
+{% endif %}
+````
+
 ## Estimated Hourly Energy Consumption
 
 ````
