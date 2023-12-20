@@ -93,14 +93,14 @@ action:
     data:
       current: >-
         {{min(max(((states('input_number.power_limit') | float * 1.0 -
-        states('sensor.estimated_hourly_energy_consumption') | float) * 5 * 1000 /
-        230) | round(0), 0),16) }}
+        states('sensor.estimated_hourly_energy_consumption') | float) * 5 * 1000
+        / 230) | round(0), 0),16) }}
       device_id: d0845e85e758774181b76398a3063cab
   - if:
       - condition: template
         value_template: >-
           {{states('sensor.estimated_hourly_energy_consumption') | float >
-          states('input_number.power_limit') | float * 0.98}}
+          states('input_number.power_limit') | float * 0.99}}
     then:
       - type: turn_on
         device_id: 3f0567e5411787bd406f6e045bfe6968
