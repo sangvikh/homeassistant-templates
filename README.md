@@ -20,6 +20,7 @@ On the lowest 8 hours of the day.
 
 ### New VVB control
 On the lowest 4 hours the next 12 hours.
+If tomorrow is not ready, use the last 12 hours of the day after 12 o clock.
 
 ````
 {% if is_state_attr("sensor.nordpool", "tomorrow_valid", True) %}
