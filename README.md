@@ -60,12 +60,14 @@ Additional costs for calculating power tariff including fixed and variable cost
 
 ### Nettleie
 
-Nettleie is 0.38 from 22-06, else 0.50.
+https://www.glitrenett.no/kunde/nettleie-og-priser/nettleiepriser-privatkunde
+
+Nettleie is 0.3009 from 22-06, else 0.4209.
 ````
 {% if now().hour >= 22 or now().hour < 6 %}
-    {{ 0.38 }}
+    {{ 0.3009 }}
 {% else %}
-    {{ 0.50 }}
+    {{ 0.4209 }}
 {% endif %}
 ````
 
@@ -77,15 +79,15 @@ s = -(p-0.875)*0.9
 ````
 {% if current_price > 0.875 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.875)*0.9 + 0.38 }}
+        {{ -(current_price - 0.875)*0.9 + 0.3009 }}
     {% else %}
-        {{ -(current_price - 0.875)*0.9 + 0.5 }}
+        {{ -(current_price - 0.875)*0.9 + 0.4209 }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ 0.38 }}
+        {{ 0.3009 }}
     {% else %}
-        {{ 0.5 }}
+        {{ 0.4209 }}
     {% endif %}
 {% endif %}
 ````
