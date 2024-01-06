@@ -73,15 +73,15 @@ Nettleie is 0.3009 from 22-06, else 0.4209.
 
 ### Nettleie med strømstøtte
 
-Strømstøtte 90% over 0.875 ink mva.
-s = -(p-0.875)*0.9
+Strømstøtte 90% over 0.9125 ink mva.
+s = -(p-0.9125)*0.9
 
 ````
-{% if current_price > 0.875 %}
+{% if current_price > 0.9125 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.875)*0.9 + 0.3009 }}
+        {{ -(current_price - 0.9125)*0.9 + 0.3009 }}
     {% else %}
-        {{ -(current_price - 0.875)*0.9 + 0.4209 }}
+        {{ -(current_price - 0.9125)*0.9 + 0.4209 }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
