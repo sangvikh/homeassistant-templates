@@ -65,9 +65,9 @@ https://www.glitrenett.no/kunde/nettleie-og-priser/nettleiepriser-privatkunde
 Nettleie is 0.3875 from 22-06, else 0.5075.
 ````
 {% if now().hour >= 22 or now().hour < 6 %}
-    {{ 0.3875 }}
+    {{ 0.41 }}
 {% else %}
-    {{ 0.5075 }}
+    {{ 0.53 }}
 {% endif %}
 ````
 
@@ -79,15 +79,15 @@ s = -(p-0.9125)*0.9
 ````
 {% if current_price > 0.9125 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.9125)*0.9 + 0.3875 }}
+        {{ -(current_price - 0.9125)*0.9 + 0.41 }}
     {% else %}
-        {{ -(current_price - 0.9125)*0.9 + 0.5075 }}
+        {{ -(current_price - 0.9125)*0.9 + 0.53 }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ 0.3875 }}
+        {{ 0.41 }}
     {% else %}
-        {{ 0.5075 }}
+        {{ 0.53 }}
     {% endif %}
 {% endif %}
 ````
