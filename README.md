@@ -79,15 +79,15 @@ s = -(p-0.9125)*0.9
 ````
 {% if current_price > 0.9125 %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ -(current_price - 0.9125)*0.9 + 0.41 }}
+        {{ -(current_price - 0.9125)*0.9 + states('input_number.energy_tariff_night') | float }}
     {% else %}
-        {{ -(current_price - 0.9125)*0.9 + 0.53 }}
+        {{ -(current_price - 0.9125)*0.9 + states('input_number.energy_tariff_day') | float }}
     {% endif %}
 {% else %}
     {% if now().hour >= 22 or now().hour < 6 %}
-        {{ 0.41 }}
+        {{ states('input_number.energy_tariff_night') | float }}
     {% else %}
-        {{ 0.53 }}
+        {{ states('input_number.energy_tariff_day') | float }}
     {% endif %}
 {% endif %}
 ````
