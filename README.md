@@ -19,17 +19,22 @@ On the lowest 8 hours of the day.
 ````
 
 ### New VVB control
-On the lowest 4 hours the next 12 hours.
+On the lowest 5 hours the next 12 hours.
 If tomorrow is not ready, use the last 12 hours of the day after 12 o clock.
 
 ````
-{% if is_state_attr("sensor.nordpool", "tomorrow_valid", True) %}
-    {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")  + state_attr("sensor.nordpool", "tomorrow"))[now().hour : now().hour + 12] | sort)[4 - 1] }}
+{% set n_hours = 5 %}
+{% if not states('sensor.vvb_temperature') | is_number %}
+    {{ true }}
+{% elif states("sensor.vvb_temperature") | float < 30.0 %}
+    {{ true }}
+{% elif is_state_attr("sensor.nordpool", "tomorrow_valid", True) %}
+    {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today")  + state_attr("sensor.nordpool", "tomorrow"))[now().hour : now().hour + 12] | sort)[n_hours - 1] }}
 {% else %}
-    {% if now().hour <= 12 %}
-        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[now().hour : now().hour + 12] | sort)[4 - 1] }}
+    {% if now().hour < 13 %}
+        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[now().hour : now().hour + 12] | sort)[n_hours - 1] }}
     {% else %}
-        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[12:24] | sort)[4 - 1] }}
+        {{ state_attr("sensor.nordpool", "current_price") <= ((state_attr("sensor.nordpool", "today"))[12 : 24] | sort)[n_hours - 1] }}
     {% endif %}
 {% endif %}
 ````
