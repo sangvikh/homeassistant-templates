@@ -97,6 +97,20 @@ s = -(p-0.9125)*0.9
 {% endif %}
 ````
 
+
+### Norgespris
+
+Fixed price - want to use the same nordpool sensor in order to keep old data and no config change
+Subtract price, add norgespris
+
+````
+{% if now().hour >= 22 or now().hour < 6 %}
+    {{ -current_price + 0.5 + states('input_number.energy_tariff_night') | float }}
+{% else %}
+    {{ -current_price + 0.5 + states('input_number.energy_tariff_day') | float }}
+{% endif %}
+````
+
 ## Events
 
 ### Use event data in template
